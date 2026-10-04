@@ -1,0 +1,5 @@
+# Single-stage presentation — 2026-10-04
+
+User requested removal of the header's left brand and right GitHub link, and replacement of continuous scrolling with one stage per screen, next-stage buttons and simple transition animation. Implemented an introduction, 18 individually presented milestones and a closing screen. Next/previous controls stay visible, direct links and browser history work, and chapter links jump directly to a stage. Incoming stages fade and slide over 300ms; reduced-motion preferences disable the animation. Experiments preserve state while hidden and ongoing playback pauses when leaving a node. Long content scrolls within the current screen, without moving to another stage. All historical text and sources are preserved, with historical-context panels available as expandable details.
+
+Acceptance: tools/stage-qa.mjs checks stage buttons, one-node visibility, header removal, rapid navigation, browser back, direct URLs, playback pause, mobile fixed navigation and reduced motion. Existing tools/browser-qa.mjs now navigates between stages while checking the six labs.

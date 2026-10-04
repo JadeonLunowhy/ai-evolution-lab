@@ -18,3 +18,6 @@ All six labs identify their scope. The diffusion example computes a finite-templ
 - Repository: https://github.com/JadeonLunowhy/ai-evolution-lab
 - Website: https://jadeonlunowhy.github.io/ai-evolution-lab/
 - GitHub Actions verified algorithms and syntax and deployed the static artifact successfully.
+
+## Single-stage revision
+Continuous scrolling was replaced by introduction, 18 individual node screens and a closing screen. Header edge branding was removed, while the three central navigation links remain. A fixed previous/next bar controls navigation, with 300ms fade/slide transitions and reduced-motion support. Stage acceptance passes for navigation, browser history, rapid clicks, direct links, hidden experiment pause and mobile fixed controls. The six-laboratory browser regression suite and all nine numerical tests also pass.

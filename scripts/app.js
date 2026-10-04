@@ -1,5 +1,6 @@
 import { eras, milestones, contexts } from './content.js';
 import { mountExperiment } from './experiments.js';
+import { mountStages } from './stages.js';
 
 const externalIcon = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10"/></svg>';
 const sourceLink = ([label,url]) => `<a class="source-link" href="${url}" target="_blank" rel="noopener noreferrer">${label} ${externalIcon}<span class="hidden">（新窗口）</span></a>`;
@@ -36,29 +37,7 @@ document.querySelectorAll('.quiz').forEach((root,i)=>{
   }));
 });
 
-let pending=false;
-function updateReading(){
-  pending=false;
-  const items=[...document.querySelectorAll('.milestone')];
-  const current=items.filter(el=>el.getBoundingClientRect().top<window.innerHeight*.42).at(-1)||items[0];
-  nav.querySelectorAll('a').forEach(link=>{
-    const active=link.dataset.era===current.dataset.era;
-    link.classList.toggle('active',active);
-    if(active)link.setAttribute('aria-current','location');else link.removeAttribute('aria-current');
-  });
-  document.querySelector('#reading-progress').textContent=`${String(current.dataset.index).padStart(2,'0')} / 18`;
-  document.querySelector('#progress-bar').style.width=`${Number(current.dataset.index)/18*100}%`;
-}
-window.addEventListener('scroll',()=>{if(!pending){pending=true;requestAnimationFrame(updateReading)}},{passive:true});
-window.addEventListener('resize',updateReading);
-function resolveHash(){
-  if(!location.hash)return;
-  let id;try{id=decodeURIComponent(location.hash.slice(1))}catch{return}
-  const target=document.getElementById(id);
-  if(target)requestAnimationFrame(()=>{target.scrollIntoView({behavior:'instant',block:'start'});updateReading()});
-}
-window.addEventListener('hashchange',()=>{requestAnimationFrame(updateReading)});
-resolveHash();updateReading();
+mountStages(milestones);
 
 const ns='http://www.w3.org/2000/svg';
 const layers=[[{x:80,y:105},{x:80,y:200},{x:80,y:295}],Array.from({length:5},(_,i)=>({x:225,y:70+i*65})),Array.from({length:5},(_,i)=>({x:365,y:70+i*65})),[{x:515,y:155},{x:515,y:245}]];

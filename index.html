@@ -8,14 +8,13 @@
   <title>智能纪 · AI Evolution Lab</title>
   <link rel="icon" type="image/svg+xml" href="./assets/favicon.svg">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./stages.css">
   <script type="module" src="./scripts/app.js"></script>
 </head>
-<body>
+<body class="stage-mode">
   <a class="skip-link" href="#timeline">跳到历史时间线</a>
   <header class="site-header">
-    <a class="brand" href="#top" aria-label="智能纪首页"><span class="brand-symbol" aria-hidden="true">a<span>i</span></span><span>智能纪<small>AI EVOLUTION LAB</small></span></a>
     <nav aria-label="主要导航"><a href="#timeline">探索历史</a><a href="#perceptron">交互实验 <span class="nav-count">06</span></a><a href="#about">关于展览</a></nav>
-    <a class="github-link" href="https://github.com/JadeonLunowhy/ai-evolution-lab" target="_blank" rel="noopener noreferrer" aria-label="查看 GitHub 源代码（新窗口）">GitHub <svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10"/></svg></a>
   </header>
   <main id="top">
     <section class="hero" aria-labelledby="hero-title">
@@ -37,7 +36,6 @@
       </div>
       <span class="hero-index" aria-hidden="true">VOL. 01 / THE MACHINE & THE MIND</span>
     </section>
-    <div class="chapter-ribbon" aria-label="六个历史章节"><span>01 · 设想</span><i></i><span>02 · 规则</span><i></i><span>03 · 学习</span><i></i><span>04 · 突破</span><i></i><span>05 · 生成</span><i></i><span>06 · 新问题</span></div>
     <div class="exhibit" id="timeline">
       <aside class="timeline-sidebar" aria-label="年代导航">
         <div class="sidebar-heading"><span class="eyebrow">CHAPTER INDEX</span><span id="reading-progress">01 / 18</span></div>
@@ -55,6 +53,11 @@
       <a class="button" href="#timeline">重新探索</a>
     </section>
   </main>
+  <nav class="stage-controls" aria-label="阶段切换">
+    <button id="previous-stage" type="button">上一阶段</button>
+    <div class="stage-position"><span id="stage-counter" class="mono">序章</span><span id="stage-title" aria-live="polite">智能，是怎样发生的？</span></div>
+    <button id="next-stage" type="button">下一阶段</button>
+  </nav>
   <footer><a class="footer-brand" href="#top">智能纪 <span>AI EVOLUTION LAB</span></a><p>历史选集 · 1943—2025 <span>内容核验于 2026 年 10 月</span></p><a href="https://github.com/JadeonLunowhy/ai-evolution-lab" target="_blank" rel="noopener noreferrer">在 GitHub 查看项目</a></footer>
   <noscript><div class="noscript-message">本展览的时间线与实验需要 JavaScript。你也可以在 GitHub 仓库中阅读完整历史资料。</div></noscript>
 </body>

@@ -6,7 +6,7 @@
   "description": "A Chinese interactive museum of artificial intelligence history",
   "scripts": {
     "test": "node --test --test-isolation=none",
-    "check": "node --check scripts/app.js && node --check scripts/content.js && node --check scripts/experiments.js && node --check scripts/algorithms.js",
+    "check": "node --check scripts/app.js && node --check scripts/content.js && node --check scripts/experiments.js && node --check scripts/algorithms.js && node --check scripts/stages.js",
     "start": "node tools/serve.js"
   },
   "engines": { "node": ">=22" }
