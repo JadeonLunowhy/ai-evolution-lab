@@ -40,8 +40,11 @@ body.stage-mode{height:100vh;height:100dvh;overflow:hidden;display:flex;flex-dir
 .stage-mode .context-details{border-left:2px solid var(--accent);padding:10px 14px;margin-top:22px;background:#13233380}
 .stage-mode .context-details summary{font-size:13px;color:var(--accent);cursor:pointer}
 .stage-mode .context-details p{font-size:13px;color:var(--muted);line-height:1.9}
-.stage-mode .closing{height:100%;overflow:auto;max-width:1000px;padding:50px 30px;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
-.stage-mode .closing footer{margin-top:45px;padding:20px 0;flex-wrap:wrap}
+.stage-mode .closing{height:100%;overflow:auto;max-width:1100px;padding:50px 30px;display:flex;flex-direction:column;justify-content:safe center;align-items:center;scrollbar-width:thin;scrollbar-color:var(--line) transparent}
+.stage-mode .closing h2{font-size:clamp(32px,4.5vw,62px);line-height:1.45;margin:24px 0 28px}
+.stage-mode .closing .closing-description{max-width:850px;margin:0;font-size:16px;line-height:2}
+.stage-mode .closing .closing-invitation{font-size:18px;line-height:1.9;color:var(--ink);margin:24px 0 32px}
+@media(max-width:520px){.stage-mode .closing .eyebrow{font-size:9px;letter-spacing:2px}.stage-mode .closing .closing-description{font-size:13px}.stage-mode .closing .closing-invitation{font-size:15px}.closing-break{display:none}}
 .stage-controls{flex-shrink:0;display:grid;grid-template-columns:150px minmax(0,1fr) 150px;gap:24px;align-items:center;padding:16px max(5%,calc((100vw - 1440px)/2));border-top:1px solid var(--line);background:#0c1520;min-height:84px;z-index:20}
 .stage-controls button{min-height:44px;font-size:14px;white-space:nowrap}
 #next-stage{background:var(--mint);color:#09251f;border-color:var(--mint);font-weight:600}

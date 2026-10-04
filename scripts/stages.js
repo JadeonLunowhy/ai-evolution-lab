@@ -1,6 +1,5 @@
 export function mountStages(milestones){
   const hero=document.querySelector('.hero'),exhibit=document.querySelector('.exhibit'),closing=document.querySelector('.closing');
-  closing.append(document.querySelector('footer'));
   const nodes=[...document.querySelectorAll('.milestone')],chapters=[...document.querySelectorAll('.chapter')];
   nodes.forEach(node=>{
     const panel=document.createElement('div');panel.className='story-panel';
@@ -31,7 +30,7 @@ export function mountStages(milestones){
     document.querySelector('#reading-progress').textContent=data?`${String(index).padStart(2,'0')} / 18`:index===0?'序章':'尾声';
     document.querySelector('#progress-bar').style.width=`${Math.min(index,nodes.length)/nodes.length*100}%`;
     document.querySelector('#stage-counter').textContent=data?`${String(index).padStart(2,'0')} / 18`:index===0?'序章':'尾声';
-    document.querySelector('#stage-title').textContent=data?`${data.year} · ${data.title}`:index===0?'智能，是怎样发生的？':'历史没有终点';
+    document.querySelector('#stage-title').textContent=data?`${data.year} · ${data.title}`:index===0?'智能，是怎样发生的？':'想象开始有了回声';
     previous.disabled=index===0;next.textContent=index===nodes.length+1?'回到开场':'下一阶段';
     const screen=index===0?hero:index===nodes.length+1?closing:nodes[index-1];
     hero.scrollTop=0;closing.scrollTop=0;document.querySelector('.chapters').scrollTop=0;exhibit.scrollTop=0;
