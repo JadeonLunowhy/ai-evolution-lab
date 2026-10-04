@@ -32,7 +32,14 @@ function pixelDraw(canvas,values,w,h,{signed=false}={}){
 function mountPerceptron(root){
   root.innerHTML=`<div class="lab-grid"><div><canvas class="experiment-canvas" width="500" height="340" role="img" aria-label="二维样本和感知机分类边界"></canvas><div class="chart-legend"><span><i class="legend-square"></i>类别 A</span><span><i class="legend-square amber"></i>类别 B</span></div></div><div class="lab-controls"><label>数据集<select class="dataset-select" aria-label="感知机数据集"><option value="linear">可线性分开</option><option value="xor">XOR · 交错的两类</option></select></label><div class="button-row"><button class="train-epoch" type="button">训练一轮</button><button class="train-many" type="button">训练 20 轮</button><button class="reset" type="button">重置</button></div><label>点击加入<select class="class-select" aria-label="新增样本类别"><option value="1">类别 A</option><option value="-1">类别 B</option></select></label><p class="lab-hint">点击空白处添加样本；拖动点改变位置。按钮与选择框也可通过键盘操作。</p><div class="lab-status" aria-live="polite"></div></div></div>`;
   const canvas=root.querySelector('canvas'),ctx=canvas.getContext('2d'),status=root.querySelector('.lab-status');
-  let samples,model,epoch,dragged=null;
+  let samples,model,epoch,dragged=null,selectedIndex=0;
+  root.querySelector('.lab-controls').insertAdjacentHTML('beforeend',`<details class="sample-editor"><summary>用键盘编辑样本</summary><form class="sample-form"><label>选择样本<select class="sample-selector" aria-label="选择要编辑的样本"></select></label><label>横坐标 x₁<input class="sample-x" type="number" min="-1.5" max="1.5" step="any" required aria-label="样本横坐标"></label><label>纵坐标 x₂<input class="sample-y" type="number" min="-1.25" max="1.25" step="any" required aria-label="样本纵坐标"></label><div class="button-row"><button class="update-sample" type="submit">更新样本</button><button class="add-sample" type="button">添加样本</button></div><p class="lab-hint">新增类别取自上方“点击加入”的选择。</p></form></details>`);
+  const sampleForm=root.querySelector('.sample-form'),sampleSelector=root.querySelector('.sample-selector');
+  function syncEditor(){sampleSelector.innerHTML=samples.map((s,i)=>`<option value="${i}">样本 ${i+1} · 类别 ${s.label===1?'A':'B'}</option>`).join('');sampleSelector.value=String(selectedIndex);root.querySelector('.sample-x').value=samples[selectedIndex].p[0].toFixed(2);root.querySelector('.sample-y').value=samples[selectedIndex].p[1].toFixed(2);}
+  sampleSelector.onchange=()=>{selectedIndex=Number(sampleSelector.value);syncEditor();};
+  const editedPoint=()=>[Number(root.querySelector('.sample-x').value),Number(root.querySelector('.sample-y').value)];
+  sampleForm.onsubmit=e=>{e.preventDefault();if(!sampleForm.reportValidity())return;samples[selectedIndex].p=editedPoint();syncEditor();draw();};
+  root.querySelector('.add-sample').onclick=()=>{if(!sampleForm.reportValidity())return;samples.push({p:editedPoint(),label:Number(root.querySelector('.class-select').value)});selectedIndex=samples.length-1;syncEditor();draw();};
   const toPixel=p=>[250+p[0]*145,170-p[1]*115];
   function draw(){
     clear(ctx,500,340);grid(ctx,500,340,40);
@@ -47,13 +54,13 @@ function mountPerceptron(root){
     const correct=samples.filter(s=>predict(model,s.p)===s.label).length;
     status.textContent=`轮次 ${epoch} · 正确 ${correct}/${samples.length}\nw=[${model.w.map(v=>v.toFixed(2)).join(', ')}]\nb=${model.b.toFixed(2)}`;
   }
-  function reset(){epoch=0;model={w:[.18,-.12],b:0};samples=root.querySelector('select').value==='xor'?[{p:[-.8,-.8],label:1},{p:[.8,.8],label:1},{p:[-.8,.8],label:-1},{p:[.8,-.8],label:-1}]:[{p:[-.95,-.55],label:-1},{p:[-.5,-.9],label:-1},{p:[-.85,.1],label:-1},{p:[-.2,-.5],label:-1},{p:[.6,.75],label:1},{p:[.95,.2],label:1},{p:[.25,.9],label:1},{p:[.7,-.1],label:1}];draw();}
+  function reset(){epoch=0;model={w:[.18,-.12],b:0};samples=root.querySelector('select').value==='xor'?[{p:[-.8,-.8],label:1},{p:[.8,.8],label:1},{p:[-.8,.8],label:-1},{p:[.8,-.8],label:-1}]:[{p:[-.95,-.55],label:-1},{p:[-.5,-.9],label:-1},{p:[-.85,.1],label:-1},{p:[-.2,-.5],label:-1},{p:[.6,.75],label:1},{p:[.95,.2],label:1},{p:[.25,.9],label:1},{p:[.7,-.1],label:1}];selectedIndex=0;syncEditor();draw();}
   function train(times){for(let i=0;i<times;i++){samples.forEach(s=>model=perceptronStep(model,s.p,s.label));epoch++}draw()}
   root.querySelector('.train-epoch').onclick=()=>train(1);root.querySelector('.train-many').onclick=()=>train(20);root.querySelector('.reset').onclick=reset;root.querySelector('.dataset-select').onchange=reset;
   const point=e=>{const r=canvas.getBoundingClientRect();return[(e.clientX-r.left)/r.width*500,(e.clientY-r.top)/r.height*340]};
   const toData=p=>[Math.max(-1.5,Math.min(1.5,(p[0]-250)/145)),Math.max(-1.25,Math.min(1.25,(170-p[1])/115))];
-  canvas.addEventListener('pointerdown',e=>{const p=point(e);dragged=samples.find(s=>{const q=toPixel(s.p);return Math.hypot(p[0]-q[0],p[1]-q[1])<18});if(!dragged){samples.push({p:toData(p),label:Number(root.querySelector('.class-select').value)});draw()}else canvas.setPointerCapture(e.pointerId)});
-  canvas.addEventListener('pointermove',e=>{if(dragged){dragged.p=toData(point(e));draw()}});canvas.addEventListener('pointerup',()=>dragged=null);canvas.addEventListener('pointercancel',()=>dragged=null);reset();
+  canvas.addEventListener('pointerdown',e=>{const p=point(e);dragged=samples.find(s=>{const q=toPixel(s.p);return Math.hypot(p[0]-q[0],p[1]-q[1])<18});if(!dragged){samples.push({p:toData(p),label:Number(root.querySelector('.class-select').value)});selectedIndex=samples.length-1;syncEditor();draw()}else{selectedIndex=samples.indexOf(dragged);syncEditor();canvas.setPointerCapture(e.pointerId)}});
+  canvas.addEventListener('pointermove',e=>{if(dragged){dragged.p=toData(point(e));syncEditor();draw()}});canvas.addEventListener('pointerup',()=>dragged=null);canvas.addEventListener('pointercancel',()=>dragged=null);reset();
 }
 
 function mountEliza(root){

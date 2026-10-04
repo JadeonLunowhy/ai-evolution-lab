@@ -27,20 +27,20 @@
 ## Task 1: Teaching algorithms
 Files: scripts/algorithms.js, tests/algorithms.test.js.
 Produces: perceptronStep, predict, convolve, softmax, weightedContext, elizaReply, qStep, diffusionStep.
-- [ ] Write tests against hand-checked numerical fixtures and empty inputs.
-- [ ] Watch failing tests; implement real mathematical operations.
-- [ ] Run node --test and verify all contracts.
+- [x] Write tests against hand-checked numerical fixtures and empty inputs.
+- [x] Watch failing tests; implement real mathematical operations.
+- [x] Run node --test and verify all contracts.
 
 ## Task 2: Narrative exhibit
 Files: index.html, styles.css, scripts/content.js, scripts/app.js, scripts/experiments.js, assets/favicon.svg.
 Consumes: mathematical exports. Produces: navigable timeline, six stateful labs and accessible source/details panels.
-- [ ] Build polished first slice and start retained HTTP preview.
-- [ ] Add all content and all experiments; verify labels and sources.
-- [ ] Browser check chapter navigation, experiment changes/resets, responsive/reduced-motion behavior.
+- [x] Build polished first slice and start retained HTTP preview.
+- [x] Add all content and all experiments; verify labels and sources.
+- [x] Browser check chapter navigation, experiment changes/resets, responsive/reduced-motion behavior.
 
 ## Task 3: Review and publish
 Files: README.md, .github/workflows/pages.yml, package.json, .gitignore, .nojekyll.
-- [ ] Run all tests, syntax checks and browser QA.
-- [ ] Fresh read-only reviewer; fix significant findings and rerun checks.
+- [x] Run all tests, syntax checks and browser QA.
+- [x] Fresh read-only reviewer; fix significant findings and rerun checks.
 - [ ] Create repository, commit, push and enable Pages.
 - [ ] Confirm successful deployment and public HTTP response.
