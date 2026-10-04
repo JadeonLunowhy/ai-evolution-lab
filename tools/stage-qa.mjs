@@ -7,10 +7,14 @@ const page=await browser.newPage({viewport:{width:1440,height:1000}});
 const base=process.env.QA_URL||'http://127.0.0.1:4173/ai-evolution-lab/';
 const errors=[];page.on('pageerror',e=>errors.push(e.message));
 try{
+  // Simulate the old module left in a browser cache after footer removal.
+  await page.route(/\/scripts\/stages\.js$/,route=>route.fulfill({contentType:'text/javascript',body:"export function mountStages(){document.querySelector('.closing').append(null)}"}));
   await page.goto(base);
+  assert.equal(await page.title(),'AI Evolution Lab');
   assert.equal(await page.locator('.site-header .brand,.site-header .github-link').count(),0,'header edge branding removed');
   assert.equal(await page.locator('#next-stage').count(),1,'stage navigation exists');
   await page.locator('#next-stage').click();
+  assert.ok(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length>=3),'layered transition active');
   assert.equal(await page.locator('.milestone:visible').count(),1);
   assert.equal(await page.locator('#neuron').isVisible(),true);
   await page.locator('#next-stage').click();
@@ -44,6 +48,10 @@ try{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.locator('#next-stage').click();
   assert.equal(await page.locator('#expert').isVisible(),true);
+  assert.equal(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length),0,'reduced motion skips transitions');
+  await page.goto(base+'#about');
+  assert.ok(!(await page.locator('.closing').innerText()).includes('null'),'cached module cannot insert null');
+  assert.equal(await page.locator('footer').count(),0);
   assert.deepEqual(errors,[]);
   const out=process.env.QA_OUTPUT||'../../work/stage-qa';await mkdir(out,{recursive:true});
   await page.screenshot({path:out+'/mobile.png'});
