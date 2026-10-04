@@ -42,5 +42,5 @@ Consumes: mathematical exports. Produces: navigable timeline, six stateful labs 
 Files: README.md, .github/workflows/pages.yml, package.json, .gitignore, .nojekyll.
 - [x] Run all tests, syntax checks and browser QA.
 - [x] Fresh read-only reviewer; fix significant findings and rerun checks.
-- [ ] Create repository, commit, push and enable Pages.
-- [ ] Confirm successful deployment and public HTTP response.
+- [x] Create repository, commit, push and enable Pages.
+- [x] Confirm successful deployment and public HTTP response.
