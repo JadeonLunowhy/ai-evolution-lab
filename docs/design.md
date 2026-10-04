@@ -1,0 +1,5 @@
+# AI Evolution Lab — approved design
+
+Chinese, beautifully composed narrative timeline with interactive teaching experiments. An independent public GitHub repository and GitHub Pages project site are explicitly requested by the user. Scope: 18 verified milestone nodes spanning 1943–2025; contextual history of expert systems, AI winters and statistical learning; six experiments (ELIZA, perceptron, convolution, reinforcement learning, attention, diffusion). Each node explains event, mechanism, significance, limitations and primary sources. No accounts, API keys, backend or paid services. Desktop and mobile, keyboard operability, reduced motion. Large dates, navy scientific editorial composition, aqua/amber accents. Educational simplifications must be labeled; no fake historical model outputs. Repository name: ai-evolution-lab, owner: JadeonLunowhy. Static relative asset URLs must work under /ai-evolution-lab/.
+
+The user approved the in-chat plan and directly authorized implementation, new repository creation and GitHub Pages publication. Continue without redundant review/approval gates.
