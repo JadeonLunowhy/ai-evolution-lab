@@ -8,3 +8,4 @@
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*:before,*:after{animation:none!important;transition:none!important}.hero-diagram{transform:none}}
 
 .lab-status{white-space:pre-line}.story{font-size:16px}.lab-controls button,.control-row button,.chat-form button{font-size:13px}.lab-controls label{display:flex;flex-direction:column;gap:5px}
+.diffusion-dataset{display:grid;grid-template-columns:repeat(10,minmax(0,1fr));gap:4px}.diffusion-dataset canvas{width:100%;height:auto;aspect-ratio:1;min-width:0}

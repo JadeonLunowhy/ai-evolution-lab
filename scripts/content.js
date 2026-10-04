@@ -140,6 +140,6 @@ export const milestones = [
 ];
 
 export const contexts = {
-  learning: { title:'历史也有低谷', text:'AI 的发展经历过多次期望落空与资金收缩，常被称为“AI 寒冬”。不同国家、研究方向和产业的经历并不完全同步。与此同时，统计学习、概率方法与其他路线持续发展；时间线展示的是精选节点，而非全部历史。', source:['斯坦福 AI100 · 历史背景','https://ai100.stanford.edu/2016-report/section-i-what-artificial-intelligence/history-ai'] },
-  deep: { title:'为什么是这个时刻？', text:'深度学习的复兴来自长期积累。2000 年代的训练研究、不断增长的数据、GPU 算力，以及算法和工程改进共同作用。2012 年是重要转折点，深度网络的历史则更早。', source:['Hinton 与 Salakhutdinov · 2006','https://www.science.org/doi/10.1126/science.1127647'] }
+  learning: { title:'历史也有低谷', text:'AI 的发展经历过多次期望落空与资金收缩，常被称为“AI 寒冬”。不同国家、研究方向和产业的经历并不完全同步。与此同时，统计学习、概率方法与其他路线持续发展；时间线展示的是精选节点，而非全部历史。', source:['斯坦福 AI100 · 历史背景','https://ai100.stanford.edu/2016-report/appendix-i-short-history-ai'] },
+  deep: { title:'为什么是这个时刻？', text:'深度学习的复兴来自长期积累。2000 年代的训练研究、不断增长的数据、GPU 算力，以及算法和工程改进共同作用。2012 年是重要转折点，深度网络的历史则更早。', source:['Hinton 与 Salakhutdinov · 2006','https://www.cs.toronto.edu/~hinton/absps/science.pdf'] }
 };

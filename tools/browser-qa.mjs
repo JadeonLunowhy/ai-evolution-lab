@@ -40,8 +40,8 @@ try{
   await page.goto(base+'#transformer');
   await page.waitForFunction(()=>{const y=document.querySelector('#transformer').getBoundingClientRect().top;return y>=0&&y<190});
   await page.locator('#transformer .attention-sentence button').nth(0).click();
-  await page.locator('a[href="#eliza"]').count().then(async count=>{if(count)await page.locator('a[href="#eliza"]').first().click()});
-  await page.goto(base+'#eliza');
+  await page.locator('#era-navigation a[data-era="rules"]').click();
+  await page.waitForFunction(()=>location.hash==='#eliza');
   await page.goBack();
   await page.waitForFunction(()=>location.hash==='#transformer');
   await page.locator('#alphago .watch-policy').click();
@@ -57,6 +57,7 @@ try{
   await page.goto(base);await page.screenshot({path:out+'/desktop.png',fullPage:false});
   await page.setViewportSize({width:390,height:844});
   assert.ok(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'mobile no overflow');
+  assert.ok(await page.locator('.diffusion-dataset').evaluate(el=>el.scrollWidth<=el.clientWidth+1),'all dataset examples fit mobile panel');
   await page.screenshot({path:out+'/mobile.png',fullPage:false});
   await page.goto(base+'#diffusion');await page.waitForTimeout(100);
   await page.screenshot({path:out+'/diffusion.png',fullPage:false});
