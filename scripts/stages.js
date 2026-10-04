@@ -15,10 +15,14 @@ export function mountStages(milestones){
     panel.closest('.chapter').querySelector('.story-panel').append(details);panel.remove();
   });
   const previous=document.querySelector('#previous-stage'),next=document.querySelector('#next-stage');
-  const reduced=matchMedia('(prefers-reduced-motion: reduce)');let current=-1,animations=[];
+  let current=-1,animations=[],motionEnabled=true;
+  const motionToggle=document.querySelector('#motion-toggle');
+  try{motionEnabled=localStorage.getItem('ai-evolution-motion')!=='off';}catch{}
+  function showMotionPreference(){motionToggle.textContent=motionEnabled?'转场：开':'转场：关';motionToggle.setAttribute('aria-pressed',String(motionEnabled));}
+  showMotionPreference();
+  motionToggle.onclick=()=>{motionEnabled=!motionEnabled;showMotionPreference();if(!motionEnabled)cancelTransition();try{localStorage.setItem('ai-evolution-motion',motionEnabled?'on':'off');}catch{}};
   const light=document.createElement('div');light.className='stage-light';light.setAttribute('aria-hidden','true');document.querySelector('main').append(light);
   function cancelTransition(){animations.forEach(animation=>animation.cancel());animations=[];}
-  reduced.addEventListener('change',e=>{if(e.matches)cancelTransition();});
   function transition(screen,direction){
     const compact=matchMedia('(max-width: 800px)').matches;
     const timing={duration:680,easing:'cubic-bezier(.16,1,.3,1)'};
@@ -54,7 +58,7 @@ export function mountStages(milestones){
     previous.disabled=index===0;next.textContent=index===nodes.length+1?'回到开场':'下一阶段';
     const screen=index===0?hero:index===nodes.length+1?closing:nodes[index-1];
     hero.scrollTop=0;closing.scrollTop=0;document.querySelector('.chapters').scrollTop=0;exhibit.scrollTop=0;
-    if(animate&&!reduced.matches&&screen.animate)transition(screen,direction);
+    if(animate&&motionEnabled&&screen.animate)transition(screen,direction);
     const active=document.querySelector('.era-link.active'),nav=document.querySelector('#era-navigation');
     if(active&&matchMedia('(max-width: 800px)').matches)nav.scrollLeft=Math.max(0,active.offsetLeft-nav.clientWidth/2+active.clientWidth/2);
   }

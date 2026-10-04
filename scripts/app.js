@@ -1,6 +1,6 @@
 import { eras, milestones, contexts } from './content.js';
 import { mountExperiment } from './experiments.js';
-import { mountStages } from './stages.js?v=20261004-motion';
+import { mountStages } from './stages.js?v=20261005-motion-control';
 
 const externalIcon = '<svg viewBox="0 0 20 20" aria-hidden="true"><path d="M5 15 15 5M5 5h10v10"/></svg>';
 const sourceLink = ([label,url]) => `<a class="source-link" href="${url}" target="_blank" rel="noopener noreferrer">${label} ${externalIcon}<span class="hidden">（新窗口）</span></a>`;

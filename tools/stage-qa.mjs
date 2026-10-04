@@ -48,7 +48,14 @@ try{
   await page.emulateMedia({reducedMotion:'reduce'});
   await page.locator('#next-stage').click();
   assert.equal(await page.locator('#expert').isVisible(),true);
-  assert.equal(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length),0,'reduced motion skips transitions');
+  assert.ok(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length>=3),'requested site animation works even when system reduces motion');
+  await page.locator('#motion-toggle').click();
+  assert.equal(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length),0,'switch cancels active transitions');
+  await page.locator('#next-stage').click();
+  assert.equal(await page.evaluate(()=>document.querySelector('main').getAnimations({subtree:true}).length),0,'off means static navigation');
+  await page.reload();
+  assert.equal(await page.locator('#motion-toggle').getAttribute('aria-pressed'),'false','preference survives reload');
+  await page.locator('#motion-toggle').click();
   await page.goto(base+'#about');
   assert.ok(!(await page.locator('.closing').innerText()).includes('null'),'cached module cannot insert null');
   assert.equal(await page.locator('footer').count(),0);
